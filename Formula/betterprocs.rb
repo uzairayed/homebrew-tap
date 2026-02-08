@@ -1,14 +1,18 @@
 class Betterprocs < Formula
   desc "A better terminal process manager — run multiple servers from one command"
   homepage "https://github.com/uzairayed/betterprocs"
-  url "https://github.com/uzairayed/betterprocs/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "67421f271d5350e087205e0993b327d60a517a2c26cfba5a4f2518568fc0b007"
+  version "0.1.0"
   license "MIT"
 
-  depends_on "rust" => :build
+  on_macos do
+    if Hardware::CPU.arm?
+      url "https://github.com/uzairayed/betterprocs/releases/download/v0.1.0/betterprocs-v0.1.0-aarch64-apple-darwin.tar.gz"
+      sha256 "4083e47bf5323e3524e7d64e8aa9ddd833dc8c5c392bc98255d6893d023f4aff"
+    end
+  end
 
   def install
-    system "cargo", "install", *std_cargo_args
+    bin.install "betterprocs"
   end
 
   test do
